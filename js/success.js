@@ -1,13 +1,13 @@
 var cancelParam = {
-  paymentToken:
-    "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
-  clientID: "855ca0eeed4248af960bdef71151cd82",
-  invoiceNo: "",
-};
+    paymentToken:
+      "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
+    clientID: "855ca0eeed4248af960bdef71151cd82",
+    invoiceNo: "",
+  };
 
 var paymentActionParam = {
   version: "3.4",
-  merchantID: "702702000001670",
+  merchantID: "458458000001107",
 };
 
 var refundParam = {
