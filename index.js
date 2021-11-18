@@ -120,7 +120,7 @@ console.log("submitRequestParameter");
   	
   	console.log(paymentToken);
   $.ajax({
-    url: encodeURI("/payment.jsp"),
+    url: encodeURI("/test2c2p/payment.jsp"),
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify(paymentToken),
