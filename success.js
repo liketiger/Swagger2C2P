@@ -5,10 +5,10 @@ var cancelParam = {
     invoiceNo: "",
   };
   
-  var paymentActionParam = {
-    version: "3.4",
-    merchantID: "458458000001107",
-  };
+var paymentActionParam = {
+  version: "3.4",
+  merchantID: "458458000001107",
+};
 
 var refundParam = {
     invoiceNo: "",
