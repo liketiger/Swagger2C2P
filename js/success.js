@@ -4,11 +4,11 @@ var cancelParam = {
     clientID: "855ca0eeed4248af960bdef71151cd82",
     invoiceNo: "",
   };
-  
-  var paymentActionParam = {
-    version: "3.4",
-    merchantID: "458458000001107",
-  };
+
+var paymentActionParam = {
+  version: "3.4",
+  merchantID: "458458000001107",
+};
 
 var refundParam = {
     invoiceNo: "",

@@ -22,11 +22,13 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 600px;
 }
 .suc-btn{
   width: 200px;
   border-radius: 6px 6px 6px 6px;
-  margin-top: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .product {
   display: flex;
@@ -87,8 +89,8 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   border: none;
+  flex-direction: column;
 }
 .modal-footer {
   background-color: #121212;
@@ -100,15 +102,11 @@ button {
   background-color: white;
 }
 .btn-2C2P{
-  width: 150px;
-  height: 80px;
-  font-size: 30px;
+  width: 220px;
+  font-size: 15px;
   margin-bottom: 30px;
-  background-color: #00B14F;
 }
-.btn-2C2P:hover{
-  background-color: #00B14F;
-}
+
 .btn-cls{
   width: 250px;
 }
@@ -126,27 +124,15 @@ button {
 }
 .dr2 {
   margin-right: 5px;
-  margin-bottom: 50px;
 }
 .drul2 > li {
   display: none;
 }
-.col-form-label {
+.modal-body > input {
+  width: 500px;
+  margin-bottom: 20px;
+}
+.modal-body > label {
   color: white;
-}
-.modal-det {
-  color: white;
-  display: flex;  
-  flex-direction: column;
-}
-.modal-prod-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 50px;
-}
-.second-doggy {
-  height: 110px;
-  width: 110px;
-  margin-right: 20px;
+  margin-bottom: 10px;
 }
