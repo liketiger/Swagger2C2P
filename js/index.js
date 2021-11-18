@@ -64,26 +64,15 @@ let paymentActionParam = {
   amount: "0.0",
 };
 
-// document.querySelector('.modal-desc').textContent = document.querySelector('.modal-desc').textContent + desc;
-// document.querySelector('.modal-amt').textContent = document.querySelector('.modal-amt').textContent + amt2;
-// document.querySelector('.modal-invo').textContent = document.querySelector('.modal-invo').textContent + paymentToken.invoiceNo;
-// document.querySelector('.modal-invo').setAttribute("value", ran.toString());
-
 for (const i of drul1List) {
   let ctx = i.textContent.split("-")[0].replace(" ", "");
   i.addEventListener("click", () => {
     unfilter();
-    drPlaceholder2.textContent = "PaymentChannel";
-    // document.querySelector('.modal-cur').textContent = "Currency : ";
-    // document.querySelector('.modal-mid').textContent = "Mid : ";
+    drPlaceholder2.textContent = "PaymentChannel"; 
     drPlaceholder1.textContent = ctx;
     paymentToken.currencyCode = ctx;
-    curCode = ctx;
-    // document.querySelector('.modal-cur').textContent = document.querySelector('.modal-cur').textContent + curCode;
-    // document.querySelector('.modal-cur').setAttribute("value", curCode);
+    curCode = ctx; 
     midSet(curCode);
-    // document.querySelector('.modal-mid').textContent = document.querySelector('.modal-mid').textContent + paymentToken.merchantID;
-    // document.querySelector('.modal-mid').setAttribute("value", paymentToken.merchantID);
     drPlaceholder2.removeAttribute("disabled");
     filtering(ctx);
   });
@@ -196,7 +185,7 @@ function modalFix(ctx) {
 
 function submitResponseParameter() {
   $.ajax({
-    url: encodeURI("/demo2c2p/paymentconfirmation"),
+    url: encodeURI("/payment.jsp"),
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify(responseParam),
