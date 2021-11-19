@@ -15,9 +15,9 @@ var refundParam = {
   actionAmount:"",
 };
 
-function submitCancelParameter() {
+function submitInquiryParameter(){
   paymentActionParam.invoiceNo = document.getElementById('invoice').value;
-  paymentActionParam.processType = "V";
+  paymentActionParam.processType = "I";
   $.ajax({
     url: encodeURI("/paymentAction.jsp"),
     type: "POST",
@@ -29,9 +29,9 @@ function submitCancelParameter() {
   });
 }
 
-function submitInquiryParameter(){
+function submitCancelParameter() {
   paymentActionParam.invoiceNo = document.getElementById('invoice').value;
-  paymentActionParam.processType = "I";
+  paymentActionParam.processType = "V";
   $.ajax({
     url: encodeURI("/paymentAction.jsp"),
     type: "POST",
@@ -47,6 +47,22 @@ function submitInquiryParameter(){
   paymentActionParam.invoiceNo = document.getElementById('invoice').value;
   paymentActionParam.actionAmount = document.getElementById('amount').value;
   paymentActionParam.processType = "R";
+  console.log(paymentActionParam);
+  $.ajax({
+    url: encodeURI("/paymentAction.jsp"),
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(paymentActionParam),
+    success: function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader("Location");
+    },
+  });
+}
+
+function refundStatus() {
+  paymentActionParam.invoiceNo = document.getElementById('invoice').value;
+  paymentActionParam.actionAmount = document.getElementById('amount').value;
+  paymentActionParam.processType = "RS";
   console.log(paymentActionParam);
   $.ajax({
     url: encodeURI("/paymentAction.jsp"),

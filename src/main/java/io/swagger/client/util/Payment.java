@@ -28,7 +28,6 @@ import io.swagger.client.util.TokenUtil;
 
 
 public class Payment {
-	
 
 	public String tooString() {
 		return ("wtf"); 

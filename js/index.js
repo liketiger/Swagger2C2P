@@ -161,22 +161,3 @@ function modalFix(ctx) {
     }
   }
 }
-function submitRequestParameter() {
-  doPayment.payment.data.name =
-    document.getElementById("name").value;
-  doPayment.payment.data.email =
-    document.getElementById("email").value;
-  doPayment.payment.data.mobileNo =
-    document.getElementById("phone").value;
-  doPayment.payment.data.accountNo =
-    document.getElementById("account").value;
-  $.ajax({
-    url: encodeURI("/payment.jsp"),
-    type: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({paymentToken: paymentToken, doPayment: doPayment}),
-    success: function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader("Location");
-    },
-  });
-}
