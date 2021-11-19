@@ -86,7 +86,7 @@ public class Payment {
 	    payment.put("code",customer);
 	    payment.put("data",data);
 	    requestData.put("payment",payment);
-	    requestData.put("responseReturnUrl",request.getResponseReturnUrl());
+	    requestData.put("responseReturnUrl","https://www.google.com");
 	    
 
 	    return getConnection(requestData, endPoint);

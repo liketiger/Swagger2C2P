@@ -8,7 +8,7 @@
 <%@ page import="org.json.simple.parser.JSONParser" %>
 <%	
 	
-	String responseReturnUrl = "localhost:8080/test2c2p/success.jsp";
+	String responseReturnUrl = "http://localhost:8080/paymentAction.jsp/";
 	
 	RequestDTO requestDTO =  new RequestDTO();
 	requestDTO.setMerchantID(request.getParameter("merchantID"));
@@ -17,6 +17,9 @@
 	requestDTO.setCurrencyCode(request.getParameter("currencyCode"));
 	requestDTO.setAmount(request.getParameter("amount"));
 	requestDTO.setResponseReturnUrl(responseReturnUrl);
+
+	System.out.println(":laksjd;flkajsd;klfja;sldkjf;klasdj;flkjasd;klfasdf");
+	System.out.println(requestDTO.getResponseReturnUrl());
 	
 	String redirectPaymentURL = new Payment().doPayment(requestDTO);
 	System.out.println(redirectPaymentURL);
