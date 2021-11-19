@@ -26,21 +26,6 @@ public class MyTest {
         curr.setProcessType("V");
 
         
-
-        System.out.println(curr.toString());
-        try {
-            PaymentActionUtil paymentActionUtil = new PaymentActionUtil();
-            String encoded = paymentActionUtil.prepareMessage(curr);
-            System.out.println(String.format("printing encoded:%s",encoded));
-            ApiClient defaultClient = Configuration.getDefaultApiClient();
-            PaymentActionApi paymentActionApi = new PaymentActionApi();
-            String response = paymentActionApi.paymentAction(encoded);
-            String responseDecoded = paymentActionUtil.decodeMessage(response);
-            System.out.println(responseDecoded);
-        } catch (ApiException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 }
 

@@ -90,7 +90,40 @@ public class PaymentActionUtil {
         //return decoded;
     }
 
-    public String decodeMessage (String response){
+    public Boolean checkValidity(HashMap<String,String> xmlMap){
+        CodecUtil codecService = new CodecUtil();
+        String resVersion = xmlMap.get("version") == null ? "" : xmlMap.get("version");
+        String resRespCode = xmlMap.get("respCode") == null ? "" : xmlMap.get("respCode");
+        String resProcessType = xmlMap.get("processType") == null ? "" : xmlMap.get("processType");
+        String resInvoiceNo = xmlMap.get("invoiceNo") == null ? "" : xmlMap.get("invoiceNo");
+        String resAmount = xmlMap.get("amount") == null ? "" : xmlMap.get("amount");
+        String resStatus = xmlMap.get("status") == null ? "" : xmlMap.get("status");
+        String resApprovalCode = xmlMap.get("approvalCode") == null ? "" : xmlMap.get("approvalCode");
+        String resReferenceNo = xmlMap.get("referenceNo") == null ? "" : xmlMap.get("referenceNo");
+        String resTransactionDateTime = xmlMap.get("transactionDateTime") == null ? "" : xmlMap.get("transactionDateTime");
+        String resPaidAgent = xmlMap.get("paidAgent") == null ? "" : xmlMap.get("paidAgent");
+        String resPaidChannel = xmlMap.get("paidChannel") == null ? "" : xmlMap.get("paidChannel");
+        String resMaskedPan = xmlMap.get("maskedPan") == null ? "" : xmlMap.get("maskedPan");
+        String resEci = xmlMap.get("eci") == null ? "" : xmlMap.get("eci");
+        String resPaymentScheme = xmlMap.get("paymentScheme") == null ? "" : xmlMap.get("paymentScheme");
+        String resProcessBy = xmlMap.get("processBy") == null ? "" : xmlMap.get("processBy");
+        String resRefundReferenceNo = xmlMap.get("refundReferenceNo") == null ? "" : xmlMap.get("refundReferenceNo");
+        String resUserDefined1 = xmlMap.get("userDefined1") == null ? "" : xmlMap.get("userDefined1");
+        String resUserDefined2 = xmlMap.get("userDefined2") == null ? "" : xmlMap.get("userDefined2");
+        String resUserDefined3 = xmlMap.get("userDefined3") == null ? "" : xmlMap.get("userDefined3");
+        String resUserDefined4 = xmlMap.get("userDefined4") == null ? "" : xmlMap.get("userDefined4");
+        String resUserDefined5 = xmlMap.get("userDefined5") == null ? "" : xmlMap.get("userDefined5");
+
+
+        String newToHash = resVersion + resRespCode + resProcessType + resInvoiceNo + resAmount + resStatus + resApprovalCode + resReferenceNo + resTransactionDateTime + resPaidAgent + resPaidChannel + resMaskedPan + resEci + resPaymentScheme + resProcessBy + resRefundReferenceNo + resUserDefined1 + resUserDefined2 + resUserDefined3 + resUserDefined4 +resUserDefined5;
+
+        String newHashed = codecService.hashHMAC(newToHash);
+        return (newHashed.toLowerCase().equals(xmlMap.get("hashValue")) &&
+                (xmlMap.get("respCode").equals("00")));
+
+    }
+
+    public HashMap<String,String> decodeMessage (String response){
         CodecUtil codecService = new CodecUtil();
         String decodedResponse = codecService.decodeString(response);
 
@@ -110,41 +143,13 @@ public class PaymentActionUtil {
                 }
             
             
-            String resVersion = xmlMap.get("version") == null ? "" : xmlMap.get("version");
-            String resRespCode = xmlMap.get("respCode") == null ? "" : xmlMap.get("respCode");
-            String resProcessType = xmlMap.get("processType") == null ? "" : xmlMap.get("processType");
-            String resInvoiceNo = xmlMap.get("invoiceNo") == null ? "" : xmlMap.get("invoiceNo");
-            String resAmount = xmlMap.get("amount") == null ? "" : xmlMap.get("amount");
-            String resStatus = xmlMap.get("status") == null ? "" : xmlMap.get("status");
-            String resApprovalCode = xmlMap.get("approvalCode") == null ? "" : xmlMap.get("approvalCode");
-            String resReferenceNo = xmlMap.get("referenceNo") == null ? "" : xmlMap.get("referenceNo");
-            String resTransactionDateTime = xmlMap.get("transactionDateTime") == null ? "" : xmlMap.get("transactionDateTime");
-            String resPaidAgent = xmlMap.get("paidAgent") == null ? "" : xmlMap.get("paidAgent");
-            String resPaidChannel = xmlMap.get("paidChannel") == null ? "" : xmlMap.get("paidChannel");
-            String resMaskedPan = xmlMap.get("maskedPan") == null ? "" : xmlMap.get("maskedPan");
-            String resEci = xmlMap.get("eci") == null ? "" : xmlMap.get("eci");
-            String resPaymentScheme = xmlMap.get("paymentScheme") == null ? "" : xmlMap.get("paymentScheme");
-            String resProcessBy = xmlMap.get("processBy") == null ? "" : xmlMap.get("processBy");
-            String resRefundReferenceNo = xmlMap.get("refundReferenceNo") == null ? "" : xmlMap.get("refundReferenceNo");
-            String resUserDefined1 = xmlMap.get("userDefined1") == null ? "" : xmlMap.get("userDefined1");
-            String resUserDefined2 = xmlMap.get("userDefined2") == null ? "" : xmlMap.get("userDefined2");
-            String resUserDefined3 = xmlMap.get("userDefined3") == null ? "" : xmlMap.get("userDefined3");
-            String resUserDefined4 = xmlMap.get("userDefined4") == null ? "" : xmlMap.get("userDefined4");
-            String resUserDefined5 = xmlMap.get("userDefined5") == null ? "" : xmlMap.get("userDefined5");
-
-
-            String newToHash = resVersion + resRespCode + resProcessType + resInvoiceNo + resAmount + resStatus + resApprovalCode + resReferenceNo + resTransactionDateTime + resPaidAgent + resPaidChannel + resMaskedPan + resEci + resPaymentScheme + resProcessBy + resRefundReferenceNo + resUserDefined1 + resUserDefined2 + resUserDefined3 + resUserDefined4 +resUserDefined5;
-
-            String newHashed = codecService.hashHMAC(newToHash);
-            System.out.println(Arrays.asList(xmlMap));
-            System.out.println(newToHash);
-            System.out.println(String.format("orig hash value: %s \n new hash value: %s\n",xmlMap.get("hashValue"),newHashed.toLowerCase()));
+            
             
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return codecService.decodeString(response);
+        return xmlMap;
     }
 
 

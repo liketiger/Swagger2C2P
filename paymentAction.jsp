@@ -5,15 +5,20 @@
 <%@ page import="io.swagger.client.util.PaymentActionUtil"%>
 <%@ page import="io.swagger.client.ApiClient"%>
 <%@ page import="io.swagger.client.ApiException"%>
+<%@ page import="io.swagger.client.configurations.MerchantConfiguration"%>
+<%@ page import="io.swagger.client.configurations.MerchantConfig"%>
+
 <%@ page import="io.swagger.client.Configuration"%>
+
 <%@ page import="io.swagger.client.api.PaymentActionApi"%>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="org.json.simple.JSONObject" %>
 <%@ page import="org.json.simple.parser.JSONParser" %>
 <%
-	/*
+	
 	String requestParameter = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+	System.out.println(requestParameter);
 	JSONParser jsonParser = new JSONParser();
 	Object obj = jsonParser.parse(requestParameter);
 	JSONObject jsonObj = (JSONObject) obj;
@@ -27,28 +32,34 @@
 	paymentActionRequest.setInvoiceNo(jsonObj.get("invoiceNo").toString());
 	paymentActionRequest.setVersion(jsonObj.get("version").toString());
 	paymentActionRequest.setActionAmount(jsonObj.get("actionAmount").toString());
-	*/
-
-	PaymentActionRequest curr = new PaymentActionRequest();
-	curr.setMerchantID("702702000001670");
-	curr.setInvoiceNo("SGD11038006");
-	curr.setVersion("3.4");
-	curr.setProcessType("V");
-	System.out.println(curr.toString());
+	
 
 	try {
 		PaymentActionUtil paymentActionUtil = new PaymentActionUtil();
-		String encoded = paymentActionUtil.prepareMessage(curr);
+		String encoded = paymentActionUtil.prepareMessage(paymentActionRequest);
 		System.out.println(String.format("printing encoded:%s",encoded));
-		ApiClient defaultClient = Configuration.getDefaultApiClient();
-		PaymentActionApi paymentActionApi = new PaymentActionApi();
+		MerchantConfiguration merchantConfiguration = new MerchantConfiguration();
+		Properties merchantAPIProp = merchantConfiguration.getPaymentActionApiDetails();
+		MerchantConfig merchantAPIConfig = new MerchantConfig(merchantAPIProp);
+		System.out.println(merchantAPIConfig.getBaseUrl());
+		ApiClient defaultClient = new ApiClient(merchantAPIConfig);
+		PaymentActionApi paymentActionApi = new PaymentActionApi(defaultClient);
 		String responsea = paymentActionApi.paymentAction(encoded);
-		String responseDecoded = paymentActionUtil.decodeMessage(responsea);
-		System.out.println(responseDecoded);
+		HashMap<String,String> xmlMap = paymentActionUtil.decodeMessage(responsea);
+		Boolean valid = paymentActionUtil.checkValidity(xmlMap);
+
+		if (valid){
+			response.addHeader("Location","request_success.html");
+		}
+		else{
+			response.addHeader("Location","request_fail.html");
+		}
 	} catch (ApiException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+
+ 
 %>
 <!DOCTYPE html>
 <html>

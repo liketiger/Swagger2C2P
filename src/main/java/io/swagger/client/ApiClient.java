@@ -50,6 +50,7 @@ import io.swagger.client.auth.Authentication;
 import io.swagger.client.auth.HttpBasicAuth;
 import io.swagger.client.auth.ApiKeyAuth;
 import io.swagger.client.auth.OAuth;
+import io.swagger.client.configurations.MerchantConfig;
 
 public class ApiClient {
     private String basePath = "https://sandbox-pgw.2c2p.com/payment/4.1";
@@ -73,6 +74,7 @@ public class ApiClient {
     private JSON json;
 
     private HttpLoggingInterceptor loggingInterceptor;
+    private MerchantConfig merchantConfig;
 
     /*
      * Constructor for ApiClient
@@ -93,6 +95,14 @@ public class ApiClient {
         authentications.put("bearerAuth", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
+    }
+
+    public ApiClient(MerchantConfig merchantConfig) {
+        this();
+        this.merchantConfig = merchantConfig;
+        
+        //base path
+        this.basePath = this.merchantConfig.getBaseUrl();
     }
 
     /**
