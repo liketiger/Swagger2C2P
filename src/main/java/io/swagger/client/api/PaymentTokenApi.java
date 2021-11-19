@@ -26,8 +26,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import io.swagger.client.model.PaymentTokenRequest;
-import io.swagger.client.model.PaymentTokenResponse;
+import io.swagger.client.model.PaymentTokenAPIRequest;
+import io.swagger.client.model.PaymentTokenAPIResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class PaymentTokenApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call paymentTokenCall(PaymentTokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call paymentTokenCall(PaymentTokenAPIRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
@@ -104,7 +104,7 @@ public class PaymentTokenApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call paymentTokenValidateBeforeCall(PaymentTokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call paymentTokenValidateBeforeCall(PaymentTokenAPIRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling paymentToken(Async)");
@@ -123,11 +123,11 @@ public class PaymentTokenApi {
      * Generate Payment Token
      * 
      * @param body Request body (required)
-     * @return PaymentTokenResponse
+     * @return PaymentTokenAPIResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PaymentTokenResponse paymentToken(PaymentTokenRequest body) throws ApiException {
-        ApiResponse<PaymentTokenResponse> resp = paymentTokenWithHttpInfo(body);
+    public PaymentTokenAPIResponse paymentToken(PaymentTokenAPIRequest body) throws ApiException {
+        ApiResponse<PaymentTokenAPIResponse> resp = paymentTokenWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -135,12 +135,12 @@ public class PaymentTokenApi {
      * Generate Payment Token
      * 
      * @param body Request body (required)
-     * @return ApiResponse&lt;PaymentTokenResponse&gt;
+     * @return ApiResponse&lt;PaymentTokenAPIResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<PaymentTokenResponse> paymentTokenWithHttpInfo(PaymentTokenRequest body) throws ApiException {
+    public ApiResponse<PaymentTokenAPIResponse> paymentTokenWithHttpInfo(PaymentTokenAPIRequest body) throws ApiException {
         com.squareup.okhttp.Call call = paymentTokenValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<PaymentTokenResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<PaymentTokenAPIResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -152,7 +152,7 @@ public class PaymentTokenApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call paymentTokenAsync(PaymentTokenRequest body, final ApiCallback<PaymentTokenResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call paymentTokenAsync(PaymentTokenAPIRequest body, final ApiCallback<PaymentTokenAPIResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -174,7 +174,7 @@ public class PaymentTokenApi {
         }
 
         com.squareup.okhttp.Call call = paymentTokenValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<PaymentTokenResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<PaymentTokenAPIResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

@@ -139,6 +139,7 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public ApiResponse<PaymentResponse> paymentWithHttpInfo(PaymentRequest body) throws ApiException {
+        System.out.println(body.toString());
         com.squareup.okhttp.Call call = paymentValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<PaymentResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);

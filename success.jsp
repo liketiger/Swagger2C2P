@@ -11,7 +11,7 @@
 </head>
 <body>
    <%
-   	response.sendRedirect("index.html");  
-    %>
+   	response.sendRedirect("success.html");  
+        %>
 </body>
 </html>

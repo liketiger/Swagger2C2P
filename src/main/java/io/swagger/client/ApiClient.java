@@ -52,8 +52,8 @@ import io.swagger.client.auth.ApiKeyAuth;
 import io.swagger.client.auth.OAuth;
 
 public class ApiClient {
-//private String basePath = "https://sandbox-pgw.2c2p.com/payment/4.1";
-    private String basePath = "https://demo2.2c2p.com/2C2PFrontend/PaymentActionV2";
+    private String basePath = "https://sandbox-pgw.2c2p.com/payment/4.1";
+    //private String basePath = "https://demo2.2c2p.com/2C2PFrontend/PaymentActionV2";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;

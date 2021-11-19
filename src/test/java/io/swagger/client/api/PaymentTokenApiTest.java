@@ -12,16 +12,17 @@
 
 package io.swagger.client.api;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.model.PaymentTokenRequest;
-import io.swagger.client.model.PaymentTokenResponse;
+import io.swagger.client.model.PaymentTokenAPIRequest;
+import io.swagger.client.model.PaymentTokenAPIResponse;
 import org.junit.Test;
 import org.junit.Ignore;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * API tests for PaymentTokenApi
@@ -36,13 +37,13 @@ public class PaymentTokenApiTest {
      *
      * 
      *
-     * @throws ApiException
+     * @throws Exception
      *          if the Api call fails
      */
     @Test
-    public void paymentTokenTest() throws ApiException {
-        PaymentTokenRequest body = null;
-        PaymentTokenResponse response = api.paymentToken(body);
+    public void paymentTokenTest() throws Exception {
+        PaymentTokenAPIRequest body = null;
+        PaymentTokenAPIResponse response = api.paymentToken(body);
 
         // TODO: test validations
     }

@@ -25,7 +25,7 @@ import java.io.IOException;
  * PaymentTokenRequest
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-18T05:35:09.941Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-19T08:42:12.170Z[GMT]")
 public class PaymentTokenRequest {
   @SerializedName("merchantID")
   private String merchantID = null;
@@ -42,8 +42,8 @@ public class PaymentTokenRequest {
   @SerializedName("currencyCode")
   private String currencyCode = null;
 
-  @SerializedName("payload")
-  private String payload = null;
+  @SerializedName("frontendReturnUrl")
+  private String frontendReturnUrl = null;
 
   public PaymentTokenRequest merchantID(String merchantID) {
     this.merchantID = merchantID;
@@ -126,7 +126,7 @@ public class PaymentTokenRequest {
    * Get currencyCode
    * @return currencyCode
   **/
-  @Schema(example = "SGD", description = "")
+  @Schema(example = "SGD", required = true, description = "")
   public String getCurrencyCode() {
     return currencyCode;
   }
@@ -135,22 +135,22 @@ public class PaymentTokenRequest {
     this.currencyCode = currencyCode;
   }
 
-  public PaymentTokenRequest payload(String payload) {
-    this.payload = payload;
+  public PaymentTokenRequest frontendReturnUrl(String frontendReturnUrl) {
+    this.frontendReturnUrl = frontendReturnUrl;
     return this;
   }
 
    /**
-   * Get payload
-   * @return payload
+   * Get frontendReturnUrl
+   * @return frontendReturnUrl
   **/
-  @Schema(description = "")
-  public String getPayload() {
-    return payload;
+  @Schema(required = true, description = "")
+  public String getFrontendReturnUrl() {
+    return frontendReturnUrl;
   }
 
-  public void setPayload(String payload) {
-    this.payload = payload;
+  public void setFrontendReturnUrl(String frontendReturnUrl) {
+    this.frontendReturnUrl = frontendReturnUrl;
   }
 
 
@@ -168,12 +168,12 @@ public class PaymentTokenRequest {
         Objects.equals(this.description, paymentTokenRequest.description) &&
         Objects.equals(this.amount, paymentTokenRequest.amount) &&
         Objects.equals(this.currencyCode, paymentTokenRequest.currencyCode) &&
-        Objects.equals(this.payload, paymentTokenRequest.payload);
+        Objects.equals(this.frontendReturnUrl, paymentTokenRequest.frontendReturnUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantID, invoiceNo, description, amount, currencyCode, payload);
+    return Objects.hash(merchantID, invoiceNo, description, amount, currencyCode, frontendReturnUrl);
   }
 
 
@@ -187,7 +187,7 @@ public class PaymentTokenRequest {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+    sb.append("    frontendReturnUrl: ").append(toIndentedString(frontendReturnUrl)).append("\n");
     sb.append("}");
     return sb.toString();
   }

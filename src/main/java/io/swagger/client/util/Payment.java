@@ -7,13 +7,12 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import io.swagger.client.model.PaymentTokenRequest;
 import io.swagger.client.dto.RequestDTO;
-
+import io.swagger.client.model.PaymentTokenResponse;
 import com.auth0.jwt.*;
 import com.auth0.jwt.algorithms.*;
 import com.auth0.jwt.interfaces.*;
-
-
 
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -25,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
+import io.swagger.client.util.TokenUtil;
 
 
 public class Payment {
@@ -33,28 +33,90 @@ public class Payment {
 	public String tooString() {
 		return ("wtf"); 
 	}
-	
-	public String doPayment(RequestDTO request) throws Exception {
-		
+
+	public String doesPayment(RequestDTO request) throws Exception {
+		TokenUtil tokenUtil = new TokenUtil();
 		//0.Prepare Secret Key & endPoint
 		String secretKey = "62994BE2F50E0B01B79EDA3FFFFA25DCDEED2491472DFC9510DD2AD9165EC861";
 		String endPointForPaymentToken = "https://sandbox-pgw.2c2p.com/payment/4.1/paymentToken";
 		String endPointForPayment = "https://sandbox-pgw.2c2p.com/payment/4.1/payment";
 		
 		//1.Prepare Payload Data 
-		HashMap<String, Object> payload = makePayload(request);
+		HashMap<String, Object> payload = makePayloadTemp(request);
 		System.out.println("1.payload::"+payload);
 		
 		//2.Generate JWToken
-		String JWToken = getJWToken(payload, secretKey);
+		String JWToken = tokenUtil.getJWToken(payload, secretKey);
 		System.out.println("2.JWToken::"+JWToken);
 		
 		//3.Send JWToken to API
 		String requestPayload = sendRequest(JWToken, endPointForPaymentToken);
 		System.out.println("3.requestPayload::"+requestPayload);
+		return requestPayload;
+	}
+
+	private HashMap<String, Object> makePayloadTemp(RequestDTO request) {
+		HashMap<String, Object> payload = new HashMap<>();
+		payload.put("merchantID", request.getMerchantID());
+		payload.put("invoiceNo",  request.getInvoiceNo());
+		payload.put("description",request.getDescription());
+		payload.put("amount", request.getAmount());
+		payload.put("currencyCode",request.getCurrencyCode());
+		payload.put("frontendReturnUrl","http://localhost:8080/success.jsp");
+        
+        return payload;
+    }
+
+		
+	private HashMap<String, Object> makePayload(PaymentTokenRequest request) {
+		HashMap<String, Object> payload = new HashMap<>();
+		payload.put("merchantID", request.getMerchantID());
+		payload.put("invoiceNo",  request.getInvoiceNo());
+		payload.put("description",request.getDescription());
+		payload.put("amount", request.getAmount());
+		payload.put("currencyCode",request.getCurrencyCode());
+		payload.put("frontendReturnUrl","http://localhost:8080/success.jsp");
+        return payload;
+    }
+	
+
+
+	public String generateToken(String requestPayload) throws Exception{
+		TokenUtil tokenUtil = new TokenUtil();
+		String secretKey = "62994BE2F50E0B01B79EDA3FFFFA25DCDEED2491472DFC9510DD2AD9165EC861";
+		String paymentToken = tokenUtil.getPaymentToken(requestPayload, secretKey);
+		System.out.println("4.paymentToken"+paymentToken);
+		return paymentToken;
+	}
+	
+	
+	public String prepareMessage(PaymentTokenRequest paymentTokenRequest) throws Exception {
+		
+		TokenUtil tokenUtil = new TokenUtil();
+		//0.Prepare Secret Key & endPoint
+		String secretKey = "62994BE2F50E0B01B79EDA3FFFFA25DCDEED2491472DFC9510DD2AD9165EC861";
+		String endPointForPaymentToken = "https://sandbox-pgw.2c2p.com/payment/4.1/paymentToken";
+		String endPointForPayment = "https://sandbox-pgw.2c2p.com/payment/4.1/payment";
+		
+		//1.Prepare Payload Data 
+		HashMap<String, Object> payload = makePayload(paymentTokenRequest);
+		System.out.println("1.payload::"+payload);
+		
+		//2.Generate JWToken
+		String JWToken = tokenUtil.getJWToken(payload, secretKey);
+		System.out.println("2.JWToken::"+JWToken);
+
+		return JWToken;
+	
+
+		
+		/*
+		//3.Send JWToken to API
+		String requestPayload = sendRequest(JWToken, endPointForPaymentToken);
+		System.out.println("3.requestPayload::"+requestPayload);
 		
 		//4.Generate paymentToken 
-		String paymentToken = getPaymentToken(requestPayload, secretKey);
+		String paymentToken = tokenUtil.getPaymentToken(requestPayload, secretKey);
 		System.out.println("4.paymentToken"+paymentToken);
 
 		//5.Request Payment to API
@@ -67,9 +129,10 @@ public class Payment {
 	    String redirectPaymentURL = responseJSON.get("data").toString();
 		
 		return redirectPaymentURL;
+		*/
 	}
-	
-	private String sendPayment(String paymentToken, String endPoint, RequestDTO request) throws Exception {
+	/*
+	private String sendPayment(String paymentToken, String endPoint, PaymentTokenRequest request) throws Exception {
 
 	    JSONObject requestData = new JSONObject();
 	    requestData.put("paymentToken",paymentToken.substring(1,paymentToken.length()-1));
@@ -86,84 +149,20 @@ public class Payment {
 	    payment.put("code",customer);
 	    payment.put("data",data);
 	    requestData.put("payment",payment);
-	    requestData.put("responseReturnUrl","https://www.google.com");
 	    
 
 	    return getConnection(requestData, endPoint);
 	}
 	
-	
-	private String getPaymentToken(String responsePayload, String secretKey) {
-		StringBuffer response = new StringBuffer();
-		try{
-			JSONParser parser = new JSONParser();
-		    JSONObject responseJSON = (JSONObject) parser.parse(responsePayload);
-		    String responseToken = responseJSON.get("payload").toString();
-		    
-		    //verify signature
-		    verifyToken(responseToken, secretKey);
+	*/
 
-		    //decode encoded payload
-		    Map<String, Claim> responseData = getDecodedJWT(responseToken);
-		    String paymentToken = responseData.get("paymentToken").toString();
-		    String webPaymentUrl = responseData.get("webPaymentUrl").toString();
-		    System.out.println("webPaymentUrl::"+webPaymentUrl);
-		    
-		    response.append(paymentToken);
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return response.toString();
-	}
-	
-	private void verifyToken(String responseToken, String secretKey) {
-		try {
-			JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
-		    verifier.verify(responseToken);
-		}catch(JWTVerificationException e){
-			//Invalid signature/claims
-			e.printStackTrace();
-		}
-	}
 
-	private Map<String, Claim> getDecodedJWT(String responseToken) {
-	    DecodedJWT jwt = JWT.decode(responseToken);
-	    return jwt.getClaims();
-	}
-
-	
-	private HashMap<String, Object> makePayload(RequestDTO request) {
-		HashMap<String, Object> payload = new HashMap<>();
-		payload.put("merchantID", request.getMerchantID());
-		payload.put("invoiceNo",  request.getInvoiceNo());
-		payload.put("description",request.getDescription());
-		payload.put("amount", request.getAmount());
-		payload.put("currencyCode",request.getCurrencyCode());
-	
-        
-        return payload;
-    }
-	
 	private String sendRequest(String token, String endPoint) throws Exception {
 	    JSONObject requestData = new JSONObject();
 	    requestData.put("payload", token);
 	    return getConnection(requestData, endPoint);
 	}
 	
-	private String getJWToken(HashMap<String, Object> payload, String secretKey) {
-		StringBuffer response = new StringBuffer();
-		try {
-			  Algorithm algorithm = Algorithm.HMAC256(secretKey);
-			  response.append(JWT.create().withPayload(payload).sign(algorithm));           
-			 
-			} catch (JWTCreationException | IllegalArgumentException e){
-			  //Invalid Signing configuration / Couldn't convert Claims.
-			  e.printStackTrace();
-
-			}
-		return response.toString();
-	}
 	
 	
 	private String getConnection(JSONObject requestData,String endPoint) throws Exception {

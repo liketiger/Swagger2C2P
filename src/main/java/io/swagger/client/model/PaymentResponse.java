@@ -25,7 +25,7 @@ import java.io.IOException;
  * PaymentResponse
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-18T05:35:09.941Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-19T10:50:59.400Z[GMT]")
 public class PaymentResponse {
   @SerializedName("channelCode")
   private String channelCode = null;
