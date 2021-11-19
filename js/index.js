@@ -196,14 +196,7 @@ function submitRequestParameter() {
     url: encodeURI("/payment.jsp"),
     type: "POST",
     contentType: "application/json",
-<<<<<<< HEAD
     data: JSON.stringify(paymentToken),
 
-=======
-    data: JSON.stringify({paymentToken: paymentToken, doPayment: doPayment}),
-    success: function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader("Location");
-    },
->>>>>>> b28163cf3620ba7a7caa575782c7830a039394b7
   });
 }
