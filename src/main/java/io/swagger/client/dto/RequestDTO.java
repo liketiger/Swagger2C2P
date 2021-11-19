@@ -15,6 +15,12 @@ public class RequestDTO {
     private String phone;
     private String account;
     private String responseReturnUrl;
+
+	    
+	public String tooString(){
+		return "wtf" ;
+	}
+
     
     public String getResponseReturnUrl() {
 		return responseReturnUrl;

@@ -124,9 +124,7 @@ console.log("submitRequestParameter");
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify(paymentToken),
-    success: function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader("Location");
-    },
+
   });
 }
 

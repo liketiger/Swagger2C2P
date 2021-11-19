@@ -143,6 +143,7 @@
       <id>sign-artifacts</id>
       <build>
         <plugins>
+      
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
@@ -213,6 +214,16 @@
       <artifactId>threetenbp</artifactId>
       <version>${threetenbp-version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.0.1</version>
+    <scope>provided</scope>
+</dependency>
+
+
     <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
   <dependency>
       <groupId>javax.annotation</groupId>

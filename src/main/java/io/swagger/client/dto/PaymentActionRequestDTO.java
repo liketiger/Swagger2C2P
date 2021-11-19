@@ -7,7 +7,7 @@ public class PaymentActionRequestDTO {
     private String processType;
     private String merchantID;
     private String actionAmount = "0.00";
-    
+
     public String getInvoiceNo() {
 		return invoiceNo;
 	}
