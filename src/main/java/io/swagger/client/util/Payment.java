@@ -28,11 +28,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class Payment {
-	
 
-	public String tooString() {
-		return ("wtf"); 
-	}
 	
 	public String doPayment(RequestDTO request) throws Exception {
 		
