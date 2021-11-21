@@ -16,7 +16,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 public class TokenUtil {
     
     public String getJWToken(HashMap<String, Object> payload, String secretKey) {
-		
 		StringBuffer response = new StringBuffer();
 		Algorithm algorithm = Algorithm.HMAC256(secretKey);
 		response.append(JWT.create().withPayload(payload).sign(algorithm));           
@@ -43,14 +42,10 @@ public class TokenUtil {
 		return response.toString().substring(1,response.toString().length()-1);
 	}
 	
-
-
-    
     public Map<String, Claim> getDecodedJWT(String responseToken) {
 	    DecodedJWT jwt = JWT.decode(responseToken);
 	    return jwt.getClaims();
 	}
-
 
     public void verifyToken(String responseToken, String secretKey) {
 			JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();

@@ -56,7 +56,7 @@ public class PaymentActionUtil {
         String actionAmount = paymentActionRequest.getActionAmount();
         String jsMerchantID = paymentActionRequest.getMerchantID();
         String merchantID = selectMerchant(invoiceNo);
-        System.out.println(processType);
+
         merchantID = (merchantID.equals("ND")) ? (jsMerchantID) : merchantID;
         //https://developer.2c2p.com/docs/status-inquiry
 
@@ -70,11 +70,10 @@ public class PaymentActionUtil {
         else{
             return "error";
         }
-        CodecUtil codecService = new CodecUtil();
-        String hashed = codecService.hashHMAC(toHash);
+    
+        String hashed = new CodecUtil().hashHMAC(toHash);
         String xml;
-        System.out.println("printing hashed");
-        System.out.println(hashed);
+
         if (processType.equals("I") || processType.equals("V") || processType.equals("RS")){
             xml = String.format("<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><hashValue>%s</hashValue></PaymentProcessRequest>",version,merchantID,processType,invoiceNo,hashed);
         }
@@ -84,10 +83,8 @@ public class PaymentActionUtil {
         else{
             return "error";
         }
-        //encode xml
-        String encoded = codecService.encodeString(xml);
-        return encoded;
-        //return decoded;
+
+        return  new CodecUtil().encodeString(xml);
     }
 
     public Boolean checkValidity(HashMap<String,String> xmlMap){
@@ -114,7 +111,6 @@ public class PaymentActionUtil {
         String resUserDefined4 = xmlMap.get("userDefined4") == null ? "" : xmlMap.get("userDefined4");
         String resUserDefined5 = xmlMap.get("userDefined5") == null ? "" : xmlMap.get("userDefined5");
 
-
         String newToHash = resVersion + resRespCode + resProcessType + resInvoiceNo + resAmount + resStatus + resApprovalCode + resReferenceNo + resTransactionDateTime + resPaidAgent + resPaidChannel + resMaskedPan + resEci + resPaymentScheme + resProcessBy + resRefundReferenceNo + resUserDefined1 + resUserDefined2 + resUserDefined3 + resUserDefined4 +resUserDefined5;
 
         String newHashed = codecService.hashHMAC(newToHash);
@@ -124,8 +120,7 @@ public class PaymentActionUtil {
     }
 
     public HashMap<String,String> decodeMessage (String response){
-        CodecUtil codecService = new CodecUtil();
-        String decodedResponse = codecService.decodeString(response);
+        String decodedResponse = new CodecUtil().decodeString(response);
 
         HashMap<String,String> xmlMap = new HashMap<String,String>();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -134,23 +129,17 @@ public class PaymentActionUtil {
             Document document = builder.parse(new InputSource(new StringReader(decodedResponse)));
             document.getDocumentElement().normalize();
             NodeList nList = document.getElementsByTagName("*");
-                for (int temp = 0; temp < nList.getLength(); temp++) {
-                    Node nNode = nList.item(temp);
-                    if (!nNode.getNodeName().equals("PaymentProcessResponse")){
-                        xmlMap.put(nNode.getNodeName(), nNode.getTextContent());
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (!nNode.getNodeName().equals("PaymentProcessResponse")){
+                    xmlMap.put(nNode.getNodeName(), nNode.getTextContent());
 
-                    }
                 }
-            
-            
-            
-            
+            } 
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return xmlMap;
     }
-
-
 }
