@@ -61,13 +61,3 @@
 
  
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-16LE">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>

@@ -20,9 +20,7 @@
 <%@ page import="java.util.stream.Collectors" %>
 
 <%	
-
-
-	String frontendReturnUrl = "http://localhost:8080/success.jsp/";
+	String frontendReturnUrl = "http://localhost:8080/success.jsp";
 
 	PaymentTokenRequest paymentTokenRequest = new PaymentTokenRequest();
 	paymentTokenRequest.setMerchantID(request.getParameter("merchantID"));
@@ -31,50 +29,46 @@
 	paymentTokenRequest.setCurrencyCode(request.getParameter("currencyCode"));
 	paymentTokenRequest.setAmount(request.getParameter("amount"));
 	paymentTokenRequest.setFrontendReturnUrl(frontendReturnUrl);
-	Payment payment = new Payment();
-	
+
+	PaymentRequestPaymentData paymentRequestPaymentData = new PaymentRequestPaymentData();
+	paymentRequestPaymentData.setName(request.getParameter("name"));
+	paymentRequestPaymentData.setEmail(request.getParameter("email"));
+
+	PaymentRequestPaymentCode paymentRequestPaymentCode = new PaymentRequestPaymentCode();
+	paymentRequestPaymentCode.setChannelCode("ALIPAY");
+	//paymentRequestPaymentCode.setChannelCode(request.getParameter("channelCode"));
 
 	try {
+		Payment payment = new Payment();
+
 		String JWToken = payment.prepareMessage(paymentTokenRequest);
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
-		PaymentTokenApi paymentTokenApi = new PaymentTokenApi();
 
 		PaymentTokenAPIRequest paymentTokenAPIRequest = new PaymentTokenAPIRequest();
 		paymentTokenAPIRequest.setPayload(JWToken);
+		PaymentTokenAPIResponse paymentTokenAPIResponse = new PaymentTokenApi().paymentToken(paymentTokenAPIRequest);
 
-		PaymentTokenAPIResponse paymentTokenAPIResponse = paymentTokenApi.paymentToken(paymentTokenAPIRequest);
-		System.out.println(paymentTokenAPIResponse.toString());
 
 		String payload = paymentTokenAPIResponse.getPayload();
 		String token = payment.generateToken(payload);
-
 		PaymentRequest paymentRequest = new PaymentRequest();
 		paymentRequest.setPaymentToken(token);
 
 		PaymentRequestPayment paymentRequestPayment = new PaymentRequestPayment();
-
-		PaymentRequestPaymentData paymentRequestPaymentData = new PaymentRequestPaymentData();
-		paymentRequestPaymentData.setName("Liz");
-		paymentRequestPaymentData.setEmail("s_holmes25@naver.com");
-		PaymentRequestPaymentCode paymentRequestPaymentCode = new PaymentRequestPaymentCode();
-		paymentRequestPaymentCode.setChannelCode("ALIPAY");
-
 		paymentRequestPayment.setData(paymentRequestPaymentData);
 		paymentRequestPayment.setCode(paymentRequestPaymentCode);
 		paymentRequest.setPayment(paymentRequestPayment);
 		
-		System.out.println(paymentRequest.toString());
+
 		PaymentResponse paymentResponse = new PaymentResponse();
-		PaymentApi paymentApi = new PaymentApi();
-		paymentResponse = paymentApi.payment(paymentRequest);
-		System.out.println("---------------------------------------------");
-		System.out.println(paymentResponse.getRespCode());
-		System.out.println(paymentResponse.getRespDesc());
-		System.out.println(paymentResponse.getData());
+		paymentResponse =  new PaymentApi().payment(paymentRequest);
 		String redirectPaymentURL = paymentResponse.getData();
 		response.sendRedirect(redirectPaymentURL);
 
-
+		System.out.println("ResponseCode ::"+paymentResponse.getRespCode());
+		System.out.println("ResponseDesc ::"+paymentResponse.getRespDesc());
+		System.out.println("WebPaymentUrl ::"+paymentResponse.getData());
+		
 	} catch (ApiException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

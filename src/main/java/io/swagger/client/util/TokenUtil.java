@@ -15,12 +15,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 public class TokenUtil {
     
-
-
     public String getJWToken(HashMap<String, Object> payload, String secretKey) {
+		
 		StringBuffer response = new StringBuffer();
-			  Algorithm algorithm = Algorithm.HMAC256(secretKey);
-			  response.append(JWT.create().withPayload(payload).sign(algorithm));           
+		Algorithm algorithm = Algorithm.HMAC256(secretKey);
+		response.append(JWT.create().withPayload(payload).sign(algorithm));           
 
 		return response.toString();
 	}
