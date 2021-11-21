@@ -18,8 +18,7 @@
 <%@ page import="io.swagger.client.dto.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.stream.Collectors" %>
-<%@ page import="org.json.simple.JSONObject" %>
-<%@ page import="org.json.simple.parser.JSONParser" %>
+
 <%	
 
 
@@ -33,6 +32,8 @@
 	paymentTokenRequest.setAmount(request.getParameter("amount"));
 	paymentTokenRequest.setFrontendReturnUrl(frontendReturnUrl);
 	Payment payment = new Payment();
+	
+
 	try {
 		String JWToken = payment.prepareMessage(paymentTokenRequest);
 		ApiClient defaultClient = Configuration.getDefaultApiClient();

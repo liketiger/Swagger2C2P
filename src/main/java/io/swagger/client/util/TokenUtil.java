@@ -3,28 +3,15 @@ package io.swagger.client.util;
 import java.util.HashMap;
 import java.util.Map;
 
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import io.swagger.client.dto.RequestDTO;
-
 import com.auth0.jwt.*;
-import com.auth0.jwt.algorithms.*;
+
 import com.auth0.jwt.interfaces.*;
 
 
 
 import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.algorithms.Algorithm;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
 
 public class TokenUtil {
     
@@ -32,15 +19,9 @@ public class TokenUtil {
 
     public String getJWToken(HashMap<String, Object> payload, String secretKey) {
 		StringBuffer response = new StringBuffer();
-		try {
 			  Algorithm algorithm = Algorithm.HMAC256(secretKey);
 			  response.append(JWT.create().withPayload(payload).sign(algorithm));           
-			 
-			} catch (JWTCreationException | IllegalArgumentException e){
-			  //Invalid Signing configuration / Couldn't convert Claims.
-			  e.printStackTrace();
 
-			}
 		return response.toString();
 	}
 
@@ -73,13 +54,9 @@ public class TokenUtil {
 
 
     public void verifyToken(String responseToken, String secretKey) {
-		try {
 			JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
 		    verifier.verify(responseToken);
-		}catch(JWTVerificationException e){
-			//Invalid signature/claims
-			e.printStackTrace();
-		}
+	
 	}
 
 

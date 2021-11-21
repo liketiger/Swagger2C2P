@@ -1,30 +1,20 @@
 package io.swagger.client.util;
 
 import java.util.HashMap;
-import java.util.Map;
 
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import io.swagger.client.model.PaymentTokenRequest;
 import io.swagger.client.dto.RequestDTO;
-import io.swagger.client.model.PaymentTokenResponse;
-import com.auth0.jwt.*;
-import com.auth0.jwt.algorithms.*;
-import com.auth0.jwt.interfaces.*;
 
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
-import io.swagger.client.util.TokenUtil;
+
 
 
 public class Payment {
