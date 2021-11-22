@@ -1,6 +1,5 @@
 package io.swagger.client.configurations;
 
-import io.swagger.client.configurations.ConfigException;
 import java.util.Properties;
 
 public class MerchantConfig {
