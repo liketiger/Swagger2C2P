@@ -1,19 +1,29 @@
 let drul1List = document.querySelectorAll(".drul1 > li");
 let drul2List = document.querySelectorAll(".drul2 > li");
+
 let drPlaceholder1 = document.getElementById("dropdownMenuButton1");
 let drPlaceholder2 = document.getElementById("dropdownMenuButton2");
+
 let currencyCode;
 let paymentChannel;
 let merchantID;
 let invoiceNo;
+
 let desc = document.querySelector(".description > h3").textContent;
 let amt = document.querySelector(".description > h5").textContent;
+
 amt = amt.substring(amt.length - 5);
+
 let btn_2C2P = document.querySelector(".btn-2C2P");
+
 let curCode = drPlaceholder1.textContent;
+
 let ran = parseInt(Math.random() * 100000000);
+
 let cancBtn = document.querySelector(".canc-btn");
+
 let inqBtn = document.querySelector(".inq-btn");
+
 var paymentToken = {
   merchantID: "702702000001662",
   invoiceNo: "",
@@ -22,6 +32,7 @@ var paymentToken = {
   currencyCode: "",
   paymentChannel: [""],  
 };
+
 var doPayment = { 
     paymentToken: "",
     responseReturnUrl: "",
@@ -37,8 +48,10 @@ var doPayment = {
       },
     }
 };
+
 document.querySelector('.modal-desc').textContent = document.querySelector('.modal-desc').textContent + desc;
 document.querySelector('.modal-amt').textContent = document.querySelector('.modal-amt').textContent + amt;
+
 for (const i of drul1List) {
   let ctx = i.textContent.split("-")[0].replace(" ", "");
   i.addEventListener("click", () => {
@@ -58,16 +71,19 @@ for (const i of drul1List) {
     filtering(ctx);
   });
 }
+
 for (const i of drul2List) {
   let ctx = i.textContent.split("-")[0].replace(" ", "");
   i.addEventListener("click", () => {
     drPlaceholder2.textContent = ctx;
     paymentToken.paymentChannel = [];
     paymentToken.paymentChannel.push(ctx);
+    document.querySelector('.modal-ch').setAttribute("value", ctx);
     doPayment.payment.code.channelCode = ctx;
     modalFix(ctx);
   });
 }
+
 function filtering(curCode) {
   for (const i of drul2List) {
     if (i.classList.contains(curCode) || i.classList.contains("gl")) {
@@ -75,11 +91,13 @@ function filtering(curCode) {
     }
   }
 }
+
 function unfilter() {
   for (const i of drul2List) {
     i.style.display = "none";
   }
 }
+
 function midSet(curCode) {
   switch (curCode) {
     case "SGD":
@@ -114,6 +132,7 @@ function midSet(curCode) {
       break;
   }
 }
+
 function modalFix(ctx) {
   let a = document.querySelector(".modal-body2").querySelectorAll("label");
   let b = document.querySelector(".modal-body2").querySelectorAll("input");
@@ -122,21 +141,25 @@ function modalFix(ctx) {
       i.style.display = "none";
     }
   }
+
   for (const i of b) {
     if (i.id == "phone") {
       i.style.display = "none";
     }
   }
+  
   for (const i of a) {
     if (i.textContent == "Account") {
       i.style.display = "none";
     }
   }
+
   for (const i of b) {
     if (i.id == "account") {
       i.style.display = "none";
     }
   }
+
   if (ctx == "GCASH" || ctx == "LINE" || ctx == "TRUEMONEY") {
     for (const i of a) {
       if (i.textContent == "Phone") {
