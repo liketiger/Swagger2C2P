@@ -143,7 +143,7 @@ function modalFix(ctx) {
   }
 
   for (const i of b) {
-    if (i.id == "phone") {
+    if (i.id == "mobileNo") {
       i.style.display = "none";
     }
   }
@@ -162,12 +162,12 @@ function modalFix(ctx) {
 
   if (ctx == "GCASH" || ctx == "LINE" || ctx == "TRUEMONEY") {
     for (const i of a) {
-      if (i.textContent == "Phone") {
+      if (i.textContent == "mobileNo") {
         i.style.display = "block";
       }
     }
     for (const i of b) {
-      if (i.id == "phone") {
+      if (i.id == "mobileNo") {
         i.style.display = "block";
       }
     }

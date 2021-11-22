@@ -23,7 +23,7 @@
 	PaymentRequestPaymentData paymentRequestPaymentData = new PaymentRequestPaymentData();
 	paymentRequestPaymentData.setName(request.getParameter("name"));
 	paymentRequestPaymentData.setEmail(request.getParameter("email"));
-	paymentRequestPaymentData.setMobileNo("0008683501");
+	paymentRequestPaymentData.setMobileNo(request.getParameter("mobileNo"));
 
 	PaymentRequestPaymentCode paymentRequestPaymentCode = new PaymentRequestPaymentCode();
 	paymentRequestPaymentCode.setChannelCode(request.getParameter("channelCode"));
