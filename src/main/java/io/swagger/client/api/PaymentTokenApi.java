@@ -1,5 +1,5 @@
 /*
- * 2c2p API
+ * 2C2P API
  * API implementation
  *
  * OpenAPI spec version: 1.0.0
@@ -56,7 +56,7 @@ public class PaymentTokenApi {
 
     /**
      * Build call for paymentToken
-     * @param body Request body (required)
+     * @param body prepare an instance of PaymentTokenRequest, and use algorithm HMAC SHA256 to encode your PaymentTokenRequest instance. The encoded result will serve as the payload of the request body. See more at https://developer.2c2p.com/recipes/generate-jwt-token (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -122,7 +122,7 @@ public class PaymentTokenApi {
     /**
      * Generate Payment Token
      * 
-     * @param body Request body (required)
+     * @param body prepare an instance of PaymentTokenRequest, and use algorithm HMAC SHA256 to encode your PaymentTokenRequest instance. The encoded result will serve as the payload of the request body. See more at https://developer.2c2p.com/recipes/generate-jwt-token (required)
      * @return PaymentTokenAPIResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -134,7 +134,7 @@ public class PaymentTokenApi {
     /**
      * Generate Payment Token
      * 
-     * @param body Request body (required)
+     * @param body prepare an instance of PaymentTokenRequest, and use algorithm HMAC SHA256 to encode your PaymentTokenRequest instance. The encoded result will serve as the payload of the request body. See more at https://developer.2c2p.com/recipes/generate-jwt-token (required)
      * @return ApiResponse&lt;PaymentTokenAPIResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -147,7 +147,7 @@ public class PaymentTokenApi {
     /**
      * Generate Payment Token (asynchronously)
      * 
-     * @param body Request body (required)
+     * @param body prepare an instance of PaymentTokenRequest, and use algorithm HMAC SHA256 to encode your PaymentTokenRequest instance. The encoded result will serve as the payload of the request body. See more at https://developer.2c2p.com/recipes/generate-jwt-token (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

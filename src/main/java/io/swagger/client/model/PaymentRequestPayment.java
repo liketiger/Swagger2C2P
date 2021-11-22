@@ -1,5 +1,5 @@
 /*
- * 2c2p API
+ * 2C2P API
  * API implementation
  *
  * OpenAPI spec version: 1.0.0
@@ -24,10 +24,10 @@ import io.swagger.client.model.PaymentRequestPaymentData;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * PaymentRequestPayment
+ * Information regarding payment
  */
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-18T05:35:09.941Z[GMT]")
+@Schema(description = "Information regarding payment")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-21T23:50:31.361Z[GMT]")
 public class PaymentRequestPayment {
   @SerializedName("code")
   private PaymentRequestPaymentCode code = null;
@@ -44,7 +44,7 @@ public class PaymentRequestPayment {
    * Get code
    * @return code
   **/
-  @Schema(description = "")
+  @Schema(required = true, description = "")
   public PaymentRequestPaymentCode getCode() {
     return code;
   }
@@ -62,7 +62,7 @@ public class PaymentRequestPayment {
    * Get data
    * @return data
   **/
-  @Schema(description = "")
+  @Schema(required = true, description = "")
   public PaymentRequestPaymentData getData() {
     return data;
   }

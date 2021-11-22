@@ -1,5 +1,5 @@
 /*
- * 2c2p API
+ * 2C2P API
  * API implementation
  *
  * OpenAPI spec version: 1.0.0
@@ -22,13 +22,19 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * PaymentRequestPaymentCode
+ * Information regarding payment code
  */
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-18T05:35:09.941Z[GMT]")
+@Schema(description = "Information regarding payment code")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-11-21T23:50:31.361Z[GMT]")
 public class PaymentRequestPaymentCode {
   @SerializedName("channelCode")
   private String channelCode = null;
+
+  @SerializedName("agentCode")
+  private String agentCode = null;
+
+  @SerializedName("agentChannelCode")
+  private String agentChannelCode = null;
 
   public PaymentRequestPaymentCode channelCode(String channelCode) {
     this.channelCode = channelCode;
@@ -36,16 +42,52 @@ public class PaymentRequestPaymentCode {
   }
 
    /**
-   * Get channelCode
+   * Mandatory / Alpha-Numeric 10 / Payment Channel Code (Refer to Channel Matrix)
    * @return channelCode
   **/
-  @Schema(description = "")
+  @Schema(required = true, description = "Mandatory / Alpha-Numeric 10 / Payment Channel Code (Refer to Channel Matrix)")
   public String getChannelCode() {
     return channelCode;
   }
 
   public void setChannelCode(String channelCode) {
     this.channelCode = channelCode;
+  }
+
+  public PaymentRequestPaymentCode agentCode(String agentCode) {
+    this.agentCode = agentCode;
+    return this;
+  }
+
+   /**
+   * Conditional / Character 10 / Agent&#x27;s Code
+   * @return agentCode
+  **/
+  @Schema(description = "Conditional / Character 10 / Agent's Code")
+  public String getAgentCode() {
+    return agentCode;
+  }
+
+  public void setAgentCode(String agentCode) {
+    this.agentCode = agentCode;
+  }
+
+  public PaymentRequestPaymentCode agentChannelCode(String agentChannelCode) {
+    this.agentChannelCode = agentChannelCode;
+    return this;
+  }
+
+   /**
+   * Conditional / Character 10 / Agent&#x27;s Channel Code
+   * @return agentChannelCode
+  **/
+  @Schema(description = "Conditional / Character 10 / Agent's Channel Code")
+  public String getAgentChannelCode() {
+    return agentChannelCode;
+  }
+
+  public void setAgentChannelCode(String agentChannelCode) {
+    this.agentChannelCode = agentChannelCode;
   }
 
 
@@ -58,12 +100,14 @@ public class PaymentRequestPaymentCode {
       return false;
     }
     PaymentRequestPaymentCode paymentRequestPaymentCode = (PaymentRequestPaymentCode) o;
-    return Objects.equals(this.channelCode, paymentRequestPaymentCode.channelCode);
+    return Objects.equals(this.channelCode, paymentRequestPaymentCode.channelCode) &&
+        Objects.equals(this.agentCode, paymentRequestPaymentCode.agentCode) &&
+        Objects.equals(this.agentChannelCode, paymentRequestPaymentCode.agentChannelCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelCode);
+    return Objects.hash(channelCode, agentCode, agentChannelCode);
   }
 
 
@@ -73,6 +117,8 @@ public class PaymentRequestPaymentCode {
     sb.append("class PaymentRequestPaymentCode {\n");
     
     sb.append("    channelCode: ").append(toIndentedString(channelCode)).append("\n");
+    sb.append("    agentCode: ").append(toIndentedString(agentCode)).append("\n");
+    sb.append("    agentChannelCode: ").append(toIndentedString(agentChannelCode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

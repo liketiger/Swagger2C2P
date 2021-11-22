@@ -23,10 +23,10 @@
 	PaymentRequestPaymentData paymentRequestPaymentData = new PaymentRequestPaymentData();
 	paymentRequestPaymentData.setName(request.getParameter("name"));
 	paymentRequestPaymentData.setEmail(request.getParameter("email"));
+	paymentRequestPaymentData.setMobileNo("0008683501");
 
 	PaymentRequestPaymentCode paymentRequestPaymentCode = new PaymentRequestPaymentCode();
-	paymentRequestPaymentCode.setChannelCode("ALIPAY");
-	//paymentRequestPaymentCode.setChannelCode(request.getParameter("channelCode"));
+	paymentRequestPaymentCode.setChannelCode(request.getParameter("channelCode"));
 
 	try {
 		Payment payment = new Payment();

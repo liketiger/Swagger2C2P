@@ -2,6 +2,8 @@ package io.swagger.client.util;
 import java.util.Arrays;
 import java.util.HashMap;
 import io.swagger.client.model.PaymentActionRequest;
+import io.swagger.client.model.PaymentProcessRequest;
+
 import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +19,9 @@ import java.io.*;
 
 
 public class PaymentActionUtil {
+
+    private String stringFormatRefund = "<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><actionAmount>%s</actionAmount><hashValue>%s</hashValue></PaymentProcessRequest>";
+    private String stringFormatRest = "<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><hashValue>%s</hashValue></PaymentProcessRequest>";
 
     private String selectMerchant(String invoiceNo){
         int invoiceStart = 0;
@@ -43,8 +48,9 @@ public class PaymentActionUtil {
               merchantID = "704704000000046";
               break;
 
+            //defaults to Singapore Merchant ID;
             default:
-                merchantID ="ND";
+                merchantID ="702702000001670";
         }
         return merchantID;
     }
@@ -57,33 +63,21 @@ public class PaymentActionUtil {
         String jsMerchantID = paymentActionRequest.getMerchantID();
         String merchantID = selectMerchant(invoiceNo);
 
-        merchantID = (merchantID.equals("ND")) ? (jsMerchantID) : merchantID;
+
+
+
         //https://developer.2c2p.com/docs/status-inquiry
+        PaymentProcessRequest paymentProcessRequest = new PaymentProcessRequest();
+        paymentProcessRequest.setVersion(version);
+        paymentProcessRequest.setProcessType(processType);
+        paymentProcessRequest.setInvoiceNo(invoiceNo);
+        paymentProcessRequest.setActionAmount(actionAmount);
+        paymentProcessRequest.setMerchantID(merchantID);
 
-        String toHash;
-        if (processType.equals("I") || processType.equals("V") || processType.equals("RS")){
-            toHash = version + merchantID + processType + invoiceNo;
-        }
-        else if (processType.equals("R")){
-            toHash = version + merchantID + processType + invoiceNo + actionAmount;
-        }
-        else{
-            return "error";
-        }
-    
-        String hashed = new CodecUtil().hashHMAC(toHash);
-        String xml;
-
-        if (processType.equals("I") || processType.equals("V") || processType.equals("RS")){
-            xml = String.format("<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><hashValue>%s</hashValue></PaymentProcessRequest>",version,merchantID,processType,invoiceNo,hashed);
-        }
-        else if (processType.equals("R")){
-            xml = String.format("<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><actionAmount>%s</actionAmount><hashValue>%s</hashValue></PaymentProcessRequest>",version,merchantID,processType,invoiceNo,actionAmount,hashed);
-        }
-        else{
-            return "error";
-        }
-
+        String hashed = new CodecUtil().hashHMAC(paymentProcessRequest.toHash());
+        paymentProcessRequest.setHashValue(hashed);
+        String xml = paymentProcessRequest.toXML();
+        System.out.println(String.format("xml string is :%s",xml));
         return  new CodecUtil().encodeString(xml);
     }
 
