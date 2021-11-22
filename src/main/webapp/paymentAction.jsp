@@ -18,46 +18,41 @@
 <%
 	
 	String requestParameter = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-	System.out.println(requestParameter);
 	JSONParser jsonParser = new JSONParser();
 	Object obj = jsonParser.parse(requestParameter);
 	JSONObject jsonObj = (JSONObject) obj;
 	
-	System.out.println();
-	
 	PaymentActionRequest paymentActionRequest = new PaymentActionRequest();
-	
 	paymentActionRequest.setMerchantID(jsonObj.get("merchantID").toString());
 	paymentActionRequest.setProcessType(jsonObj.get("processType").toString());
 	paymentActionRequest.setInvoiceNo(jsonObj.get("invoiceNo").toString());
 	paymentActionRequest.setVersion(jsonObj.get("version").toString());
 	paymentActionRequest.setActionAmount(jsonObj.get("actionAmount").toString());
-	
 
 	try {
 		PaymentActionUtil paymentActionUtil = new PaymentActionUtil();
 		String encoded = paymentActionUtil.prepareMessage(paymentActionRequest);
 		System.out.println(String.format("printing encoded:%s",encoded));
-		MerchantConfiguration merchantConfiguration = new MerchantConfiguration();
-		Properties merchantAPIProp = merchantConfiguration.getPaymentActionApiDetails();
+
+		Properties merchantAPIProp = new MerchantConfiguration().getPaymentActionApiDetails();
 		MerchantConfig merchantAPIConfig = new MerchantConfig(merchantAPIProp);
 		System.out.println(merchantAPIConfig.getBaseUrl());
 		ApiClient defaultClient = new ApiClient(merchantAPIConfig);
 		PaymentActionApi paymentActionApi = new PaymentActionApi(defaultClient);
 		String responsea = paymentActionApi.paymentAction(encoded);
 		HashMap<String,String> xmlMap = paymentActionUtil.decodeMessage(responsea);
-		Boolean valid = paymentActionUtil.checkValidity(xmlMap);
+		System.out.println("PaymentActionResult::"+xmlMap);
 
+		Boolean valid = paymentActionUtil.checkValidity(xmlMap);
 		if (valid){
 			response.addHeader("Location","request_success.html");
 		}
 		else{
 			response.addHeader("Location","request_fail.html");
 		}
+
 	} catch (ApiException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-
- 
 %>

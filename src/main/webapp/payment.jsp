@@ -1,23 +1,13 @@
 <%@ page language="java" contentType = "text/html;charset=utf-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8");%>
 <%@ page import="io.swagger.client.util.Payment"%>
-<%@ page import="io.swagger.client.model.PaymentTokenAPIRequest"%>
-<%@ page import="io.swagger.client.model.PaymentTokenRequest"%>
-<%@ page import="io.swagger.client.model.PaymentTokenAPIResponse"%>
-<%@ page import="io.swagger.client.model.PaymentTokenResponse"%>
-<%@ page import="io.swagger.client.model.PaymentRequest"%>
-<%@ page import="io.swagger.client.model.PaymentResponse"%>
-<%@ page import="io.swagger.client.model.PaymentRequestPayment"%>
-<%@ page import="io.swagger.client.model.PaymentRequestPaymentCode"%>
-<%@ page import="io.swagger.client.model.PaymentRequestPaymentData"%>
+<%@ page import="io.swagger.client.model.*"%>
 <%@ page import="io.swagger.client.ApiClient"%>
 <%@ page import="io.swagger.client.ApiException"%>
 <%@ page import="io.swagger.client.Configuration"%>
 <%@ page import="io.swagger.client.api.PaymentApi"%>
 <%@ page import="io.swagger.client.api.PaymentTokenApi"%>
-<%@ page import="io.swagger.client.dto.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.util.stream.Collectors" %>
 
 <%	
 	String frontendReturnUrl = "http://localhost:8080/success.jsp";

@@ -23,10 +23,6 @@ public class MerchantConfig {
 	private String baseUrl;
 
 
-    public MerchantConfig() throws ConfigException {
-
-	}
-
 	public MerchantConfig(Properties _props) throws ConfigException {
 		if (_props != null) {
 			this.setProps(_props);
