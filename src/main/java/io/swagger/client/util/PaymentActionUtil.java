@@ -1,5 +1,5 @@
 package io.swagger.client.util;
-import java.util.Arrays;
+
 import java.util.HashMap;
 import io.swagger.client.model.PaymentActionRequest;
 import io.swagger.client.model.PaymentProcessRequest;
@@ -7,21 +7,14 @@ import io.swagger.client.model.PaymentProcessRequest;
 import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
 import org.w3c.dom.*;
-import org.xml.sax.InputSource;
-
-import javax.xml.parsers.*;
-import java.io.*;
 
 
 public class PaymentActionUtil {
-
-    private String stringFormatRefund = "<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><actionAmount>%s</actionAmount><hashValue>%s</hashValue></PaymentProcessRequest>";
-    private String stringFormatRest = "<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><hashValue>%s</hashValue></PaymentProcessRequest>";
 
     private String selectMerchant(String invoiceNo){
         int invoiceStart = 0;
@@ -63,10 +56,8 @@ public class PaymentActionUtil {
         String jsMerchantID = paymentActionRequest.getMerchantID();
         String merchantID = selectMerchant(invoiceNo);
 
+        //https://developer.2c2p.com/docs/status-inquiry 
 
-
-
-        //https://developer.2c2p.com/docs/status-inquiry
         PaymentProcessRequest paymentProcessRequest = new PaymentProcessRequest();
         paymentProcessRequest.setVersion(version);
         paymentProcessRequest.setProcessType(processType);

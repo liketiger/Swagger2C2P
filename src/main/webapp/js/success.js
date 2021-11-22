@@ -1,14 +1,7 @@
-
-
 var paymentActionParam = {
   version: "3.4",
   merchantID: "702702000001670",
   actionAmount: "0.0",
-};
-
-var refundParam = {
-  invoiceNo: "",
-  actionAmount:"",
 };
 
 function submitInquiryParameter(){
