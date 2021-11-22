@@ -25,8 +25,7 @@
 	paymentRequestPaymentData.setEmail(request.getParameter("email"));
 
 	PaymentRequestPaymentCode paymentRequestPaymentCode = new PaymentRequestPaymentCode();
-	paymentRequestPaymentCode.setChannelCode("ALIPAY");
-	//paymentRequestPaymentCode.setChannelCode(request.getParameter("channelCode"));
+	paymentRequestPaymentCode.setChannelCode(request.getParameter("channelCode"));
 
 	try {
 		Payment payment = new Payment();
