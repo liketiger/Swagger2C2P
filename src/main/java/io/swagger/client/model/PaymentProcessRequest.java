@@ -340,7 +340,7 @@ public class PaymentProcessRequest {
     if (merchantID != null) sb.append(String.format("<merchantID>%s</merchantID>",merchantID));
     if (processType != null) sb.append(String.format("<processType>%s</processType>",processType));
     if (invoiceNo != null) sb.append(String.format("<invoiceNo>%s</invoiceNo>",invoiceNo));
-    if (actionAmount != null && Double.parseDouble(actionAmount) > 0) sb.append(String.format("<actionAmount>%s</actionAmount>",version));
+    if (actionAmount != null && Double.parseDouble(actionAmount) > 0) sb.append(String.format("<actionAmount>%s</actionAmount>",actionAmount));
     if (bankCode != null) sb.append(String.format("<bankCode>%s</bankCode>",bankCode));
     if (accountName != null) sb.append(String.format("<accountName>%s</accountName>",accountName));
     if (accountNumber != null) sb.append(String.format("<accountNumber>%s</accountNumber>",accountNumber));
